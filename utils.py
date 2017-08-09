@@ -134,6 +134,27 @@ def sents_to_counts(sents, vocab):
             feature_matrix[i,vocab.word_to_id.get(k, vocab.UNK_ID)] = v
     return feature_matrix
 
+# Converts words in each sentence to tokens.
+def tokenize_sents(sents, vocab):
+    tokenized_sents = []
+    for s in sents:
+        # Canonicalize words first.
+        sent_tokens = [vocab.word_to_id.get(canonicalize_word(w), vocab.UNK_ID) for w in s]
+        tokenized_sents.append(sent_tokens)
+    return tokenized_sents
+
+# Pads sentences where lenth is < max_length and truncates
+# too long sentences to max_length so that all sentences
+# are the same length.
+def pad_sents(sents, max_length):
+    sents_p = []
+    for s in sents:
+        if(len(s) <= max_length):
+            sents_p.append(np.pad(s, pad_width=(0,max_length-len(s)),mode='constant',constant_values=0))
+        else:
+            sents_p.append(s[0:max_length])
+    return np.array(sents_p)
+
 def build_vocab(corpus, V=10000):
     token_feed = (canonicalize_word(w) for w in corpus.words())
     vocab = vocabulary.Vocabulary(token_feed, size=V)
