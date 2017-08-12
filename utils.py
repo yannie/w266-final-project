@@ -164,7 +164,7 @@ def tokenize(text):
     tokens = nltk.word_tokenize(text)
     return tokens
 
-def get_train_test_sents(corpus, labels, split=0.7, shuffle=True):
+def get_train_test_sents(corpus, labels, norm_labels, split=0.7, shuffle=True):
     """Get train and test sentences.
     Args:
       corpus: nltk.corpus that supports sents() function
@@ -188,13 +188,15 @@ def get_train_test_sents(corpus, labels, split=0.7, shuffle=True):
     test_sentences = sentences[split_idx:]
     train_labels = labels[:split_idx]
     test_labels = labels[split_idx:]
+    train_norm_labels = norm_labels[:split_idx]
+    test_norm_labels = norm_labels[split_idx:]
 
     fmt = (len(train_sentences), sum(map(len, train_sentences)))
     print "Training set: %d sentences (%d tokens)" % fmt
     fmt = (len(test_sentences), sum(map(len, test_sentences)))
     print "Test set: %d sentences (%d tokens)" % fmt
 
-    return train_sentences, test_sentences, train_labels, test_labels
+    return train_sentences, test_sentences, train_labels, test_labels, train_norm_labels, test_norm_labels
 
 ##
 # Use this function
