@@ -1,0 +1,6 @@
+model_checkpoint_path: "embeddings.ckpt-236"
+all_model_checkpoint_paths: "embeddings.ckpt-228"
+all_model_checkpoint_paths: "embeddings.ckpt-230"
+all_model_checkpoint_paths: "embeddings.ckpt-232"
+all_model_checkpoint_paths: "embeddings.ckpt-234"
+all_model_checkpoint_paths: "embeddings.ckpt-236"
